@@ -1,0 +1,30 @@
+{
+  "name": "falo-register-rest-api",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "repository": "https://github.com/ductoanvo/falo-account-rest-api.git",
+  "license": "MIT",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/index",
+    "dev": "prettier --write . && nodemon src/index",
+    "test": "jest --config ./jest.config.json"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "express": "^4.17.1",
+    "firebase-admin": "^9.11.1",
+    "http-status-codes": "^2.1.4",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
+    "uuid": "^8.3.2",
+    "validator": "^13.6.0"
+  },
+  "devDependencies": {
+    "dotenv": "^10.0.0",
+    "jest": "^27.2.1",
+    "node-libcurl": "^2.3.3",
+    "nodemon": "^2.0.12",
+    "prettier": "2.4.1"
+  }
+}
