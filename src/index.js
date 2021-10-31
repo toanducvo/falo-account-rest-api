@@ -11,13 +11,17 @@ app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use((req, res, next) => {
-  console.log(uuidv4());
-  req.headers["X-Request-Id"] = uuidv4();
+  // Predefined request id
+  // Add request id to the request object
+  req.header["X-Request-Id"] = uuidv4(); // with uuid v4 generator
 
-  res.header("X-Request-Id", req.header("x-request-id"));
+  // Add request id to the response object
+  res.setHeader("X-Request-Id", req.header["X-Request-Id"]);
 
+  // Next to route
   next();
 });
+
 app.use(routes);
 
 app.listen(port, () => {
