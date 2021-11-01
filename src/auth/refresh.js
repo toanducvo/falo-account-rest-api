@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const verifyToken = require("./verify");
 
 /**
  * Refresh token, sign with secret key
@@ -6,17 +7,14 @@ const jwt = require("jsonwebtoken");
  * @returns {string} newToken
  */
 const refreshToken = (token) => {
-  const payload = jwt.verify(token, process.env.JWT_SECRET);
+  const payload = await verifyToken(token);
   const newToken = jwt.sign(
     {
       sub: payload.sub,
       iat: new Date().getTime(),
       exp: new Date().setDate(new Date().getDate() + 1),
     },
-    process.env.JWT_SECRET,
-    {
-      expiresIn: 60 * 60 * 24,
-    }
+    process.env.JWT_SECRET
   );
   return newToken;
 };

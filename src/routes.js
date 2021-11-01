@@ -5,16 +5,11 @@ const { StatusCodes, getReasonPhrase: Message } = require("http-status-codes");
 // Create the router
 const router = express.Router();
 
-// Import account handler
-const accountController = require("./controllers/account");
-
-// Import user handler
-// const userHandler = require("./controllers/user");
-
 router.use(require("./routes/register"));
-// router.use(require("./routes/login"));
-// router.use(require("./routes/change-password"));
-// router.use(require("./routes/forgot-password"));
+router.use(require("./routes/login"));
+router.use(require("./routes/change-password"));
+router.use(require("./routes/forgot-password"));
+router.use(require("./routes/delete"));
 
 router.use((req, res) => {
   // If request path did not match account path, return 404

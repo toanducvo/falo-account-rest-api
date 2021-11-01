@@ -6,8 +6,11 @@ const jwt = require("jsonwebtoken");
  * @returns {object} payload
  */
 const verifyToken = (token) => {
-  const payload = jwt.verify(token, process.env.JWT_SECRET);
-  return payload;
+  try {
+    return jwt.verify(token, process.env.JWT_SECRET);
+  } catch (error) {
+    throw new Error("Invalid signature");
+  }
 };
 
 module.exports = verifyToken;

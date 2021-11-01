@@ -5,14 +5,14 @@ const accountController = require("../controllers/account");
 
 const validateHeader = require("../validations/header");
 const validatePhoneNumber = require("../validations/phone-number");
-const validatePassword = require("../validations/password");
+const validateAuth = require("../validations/auth");
 
 router.post(
-  "/forgot-password",
+  "/delete",
   validateHeader,
+  validateAuth,
   validatePhoneNumber,
-  validatePassword,
-  accountController.resetPassword
+  accountController.deleteAccount
 );
 
 module.exports = router;
