@@ -67,7 +67,7 @@ const register = async (req, res) => {
         // Get user id
         // Update id of user
         const userId = results[1].id;
-        results[1].update({ id: userId });
+        results[1].update({ id: userId, phoneNumber: account.phoneNumber });
 
         // Add user id to account
         // Update user id of account and account id of user
