@@ -7,9 +7,9 @@ const jwt = require("jsonwebtoken");
  */
 const createToken = (data) => {
   const payload = {
-    sub: data.id,
+    sub: data.userId,
     iat: new Date().getTime(),
-    exp: new Date().setDate(new Date().getDate() + 1),
+    exp: new Date().setDate(new Date().getDate() + 7),
   };
   return jwt.sign(payload, process.env.JWT_SECRET);
 };

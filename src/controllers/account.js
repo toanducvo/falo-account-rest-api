@@ -4,10 +4,14 @@ const { StatusCodes, getReasonPhrase: Message } = require("http-status-codes");
 
 const firebase = require("../firebase");
 
+// Import createToken method
 const createToken = require("../auth/create");
 
 // Import verifyToken method
 const verifyToken = require("../auth/verify");
+
+// Import refreshToken method
+const refreshToken = require("../auth/refresh");
 
 // Create reference to firebase database
 const database = firebase.firestore();
@@ -81,8 +85,9 @@ const register = async (req, res) => {
           status: "success",
           message: "Create account successfully",
           data: {
-            token,
-          }
+            token: token,
+            // refreshToken: refreshToken(token),
+          },
         });
       });
   } catch (err) {
@@ -118,11 +123,14 @@ const login = async (req, res) => {
 
   // Create token
   const token = createToken(account);
-  res.header("Authorization", token);
 
   return res.status(StatusCodes.OK).json({
     status: "success",
     message: "Login sucessfully",
+    data: {
+      token: token,
+      // refreshToken: refreshToken(token),
+    },
   });
 };
 
