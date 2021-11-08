@@ -7,7 +7,7 @@ const validateHeader = require("../validations/header");
 const validatePhoneNumber = require("../validations/phone-number");
 const validateAuth = require("../validations/auth");
 
-router.post(
+router.delete(
   "/delete",
   validateHeader,
   validateAuth,
