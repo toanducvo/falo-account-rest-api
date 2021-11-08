@@ -77,10 +77,12 @@ const register = async (req, res) => {
         // Create token
         const token = createToken(account);
 
-        res.header("Authorization", token);
         return res.status(StatusCodes.CREATED).json({
           status: "success",
           message: "Create account successfully",
+          data: {
+            token,
+          }
         });
       });
   } catch (err) {
