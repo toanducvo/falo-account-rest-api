@@ -20,8 +20,8 @@ const validateFullName = (req, res, next) => {
 
     // Check if full name is not empty and has no special characters
     // If not valid, throw error
-    if (isEmpty(fullName) || !new RegExp(/^[a-zA-Z ]+$/).test(fullName))
-      throw new Error("Your name is invalid");
+    // if (isEmpty(fullName) || !new RegExp(/^[a-zA-Z ]+$/).test(fullName))
+    //   throw new Error("Your name is invalid");
 
     if (fullName.length < 2) throw new Error("Your name is too short");
 
