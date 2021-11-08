@@ -3,7 +3,11 @@ const morgan = require("morgan");
 const routes = require("./routes");
 const { v4: uuidv4 } = require("uuid");
 const cors = require("cors");
-require("dotenv").config({ path: ".env.development" });
+
+const config = require("./config/config.json");
+require("dotenv").config({ path: ".env.development" })
+  ? config.env === "development"
+  : require("dotenv").config({ path: ".env" });
 
 const app = express();
 const port = process.env.PORT || 3000;
