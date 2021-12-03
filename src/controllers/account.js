@@ -33,7 +33,7 @@ const register = async (req, res) => {
       gender: gender,
     };
 
-    const account = {
+    var account = {
       phoneNumber: phoneNumber,
       password: password,
       role: role,
@@ -71,6 +71,7 @@ const register = async (req, res) => {
         // Get user id
         // Update id of user
         const userId = results[1].id;
+        account.userId = userId;
         results[1].update({
           id: userId,
           phoneNumber: account.phoneNumber,
@@ -164,6 +165,8 @@ const changePassword = async (req, res) => {
 
     // Verify token
     const payload = verifyToken(token);
+
+    console.log(payload);
 
     // sub is id of user collection
     const account = await findByUserId(payload.sub);
@@ -288,7 +291,7 @@ const findByUserId = async (userId) => {
     .get();
   if (accounts.empty) return null;
   return accounts.docs[0].data();
-}
+};
 
 /**
  * Compare password with hash and return true if match
