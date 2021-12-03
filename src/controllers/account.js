@@ -151,7 +151,13 @@ const login = async (req, res) => {
  */
 const changePassword = async (req, res) => {
   try {
-    const { password } = req.body;
+    const { oldPassword, password } = req.body;
+
+    // Assign password to new password for convenience
+    // why?
+    // prev: password to ensure that match password validation parameter
+    // in validation middleware
+    const newPassword = password;
 
     // Get token from request header
     const token = req.headers.authorization.split(" ")[1];
@@ -159,16 +165,23 @@ const changePassword = async (req, res) => {
     // Verify token
     const payload = verifyToken(token);
 
-    const account = await findById(payload.sub);
+    // sub is id of user collection
+    const account = await findByUserId(payload.sub);
 
-    if (account === null || !(verifyToken(token).sub === account.id))
+    if (account === null || !(verifyToken(token).sub === account.userId))
       return res.status(StatusCodes.UNAUTHORIZED).json({
         status: "error",
         message: "Account not found or unauthorized",
       });
 
+    if (!comparePassword(oldPassword, account.password))
+      return res.status(StatusCodes.CONFLICT).json({
+        status: "error",
+        message: "Old password is not correct",
+      });
+
     const salt = await bscrypt.genSalt(10);
-    const hashedPassword = bscrypt.hashSync(password, salt);
+    const hashedPassword = bscrypt.hashSync(newPassword, salt);
 
     await database
       .collection("accounts")
@@ -262,6 +275,20 @@ const findById = async (id) => {
   if (!account) return null;
   return account.data();
 };
+
+/**
+ * Get account by userId
+ * @param {string} userId
+ * @returns {object} account
+ */
+const findByUserId = async (userId) => {
+  const accounts = await database
+    .collection("accounts")
+    .where("userId", "==", userId)
+    .get();
+  if (accounts.empty) return null;
+  return accounts.docs[0].data();
+}
 
 /**
  * Compare password with hash and return true if match
