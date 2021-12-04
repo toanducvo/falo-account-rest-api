@@ -31,6 +31,14 @@ const register = async (req, res) => {
     const user = {
       fullName: fullName,
       gender: gender,
+      birthday: new Date("2000-01-01"),
+      contactRequest: [],
+      contacts: [],
+      members: [],
+      notifications: [],
+      settings: [],
+      avatar:
+        "https://firebasestorage.googleapis.com/v0/b/falo-chat-app.appspot.com/o/user%2Fdefault%2FdefaultUser.jpg?alt=media&token=db2f66e1-0d86-42f8-a990-aff8c92ab48d",
     };
 
     var account = {
@@ -75,12 +83,6 @@ const register = async (req, res) => {
         results[1].update({
           id: userId,
           phoneNumber: account.phoneNumber,
-          birthday: new Date("1970-01-01"),
-          contactRequest: [],
-          contacts: [],
-          members: [],
-          notifications: [],
-          settings: [],
         });
 
         // Add user id to account
