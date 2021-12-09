@@ -6,7 +6,7 @@
   "license": "MIT",
   "type": "commonjs",
   "scripts": {
-    "start": "prettier --write . && node src/index",
+    "start": "node src/index",
     "dev": "prettier --write . && nodemon src/index",
     "format": "prettier --write .",
     "test": "jest --config ./jest.config.json"
