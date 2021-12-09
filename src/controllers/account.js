@@ -31,7 +31,7 @@ const register = async (req, res) => {
     const user = {
       fullName: fullName,
       gender: gender,
-      birthday: new Date("2000-01-01"),
+      birthDay: new Date("2000-01-01"),
       contactRequest: [],
       contacts: [],
       members: [],
